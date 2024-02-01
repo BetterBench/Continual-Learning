@@ -1,91 +1,79 @@
 # Continual Learning
 [![DOI](https://zenodo.org/badge/150479999.svg)](https://zenodo.org/badge/latestdoi/150479999)
 
-This is a PyTorch implementation of the continual learning experiments with deep neural networks described in the
-following article:
+这是使用深度神经网络进行持续学习实验的 PyTorch 实现，参见
+以下文章：
 * [Three types of incremental learning](https://www.nature.com/articles/s42256-022-00568-3) (2022, *Nature Machine Intelligence*)
 
-This repository mainly supports experiments in the *academic continual learning setting*, whereby
-a classification-based problem is split up into multiple, non-overlapping *contexts*
-(or *tasks*, as they are often called) that must be learned sequentially.
-Some support is also provided for running more flexible, "task-free" continual learning experiments
-with gradual transitions between contexts.
+该存储库主要支持*学术持续学习环境*中的实验，其中基于分类的问题被分成多个不重叠的*上下文context* （或“任务task”，因为它们通常被称为）必须按顺序学习。
+还为运行更灵活的“无任务”持续学习实验提供了一些支持
+上下文之间逐渐过渡。
 
 
-### Earlier version
-An earlier version of the code in this repository can be found 
+### 旧版
+可以在此存储库中找到早期版本的代码
 [in this branch](https://github.com/GMvandeVen/continual-learning/tree/preprints).
-This version of the code was used for the continual learning experiments described
-in two preprints of the above article:
-- Three scenarios for continual learning (<https://arxiv.org/abs/1904.07734>)
-- Generative replay with feedback connections as a general strategy for continual learning
+此版本的代码用于上述文章的两篇预印本中描述的持续学习实验：
+- 持续学习的三种场景（<https://arxiv.org/abs/1904.07734>）
+- 具有反馈连接的生成重播作为持续学习的一般策略
 (<https://arxiv.org/abs/1809.10635>)
 
 
-## Installation & requirements
-The current version of the code has been tested with `Python 3.10.4` on a Fedora operating system
-with the following versions of PyTorch and Torchvision:
+## 安装和配置
+当前版本的代码已在 Fedora 操作系统上使用“Python 3.10.4”以及以下版本的 PyTorch 和 Torchvision 进行了测试：
 * `pytorch 1.11.0`
 * `torchvision 0.12.0`
 
-Further Python-packages used are listed in `requirements.txt`.
-Assuming Python and pip are set up, these packages can be installed using:
+更多使用的 Python 包列在“requirements.txt”中。
+假设已设置 Python 和 pip，可以使用以下命令安装这些包：
 ```bash
 pip install -r requirements.txt
 ```
 
-The code in this repository itself does not need to be installed, but a number of scripts should be made executable:
+该存储库中的代码本身不需要安装，但许多脚本应该可执行：
 ```bash
 chmod +x main*.py compare*.py all_results.sh
 ```
 
 
 ## NeurIPS tutorial "Lifelong Learning Machines"
-This code repository is used for the
-[NeurIPS 2022 tutorial "Lifelong Learning Machines"](https://sites.google.com/view/neurips2022-llm-tutorial).
-For details and instructions on how to re-run the experiments presented in this tutorial,
-see the file [NeurIPS_tutorial.md](NeurIPS_tutorial.md).
 
+此代码存储库用于 "Lifelong Learning Machines"](https://sites.google.com/view/neurips2022-llm-tutorial).
+有关如何重新运行本教程中介绍的实验的详细信息和说明，请参阅文件 [NeurIPS_tutorial.md](NeurIPS_tutorial.md)。
 
 ## Demos
 ##### Demo 1: Single continual learning experiment
 ```bash
 ./main.py --experiment=splitMNIST --scenario=task --si
 ```
-This runs a single continual learning experiment:
-the method Synaptic Intelligence on the task-incremental learning scenario of Split MNIST
-using the academic continual learning setting.
-Information about the data, the network, the training progress and the produced outputs is printed to the screen.
-Expected run-time on a standard desktop computer is ~6 minutes, with a GPU it is expected to take ~3 minutes.
+这运行一个持续学习实验：
+使用学术持续学习设置的Split MNIST 任务增量学习场景的突触智能（Synaptic Intelligence）方法。 有关数据、网络、训练进度和产生的输出的信息都会打印到屏幕上。
+标准台式计算机上的预计运行时间约为 6 分钟，使用 GPU 时预计需要约 3 分钟。
 
-##### Demo 2: Comparison of continual learning methods
+##### Demo 2: 持续学习方法比较
 ```bash
 ./compare.py --experiment=splitMNIST --scenario=task
 ```
-This runs a series of continual learning experiments,
-comparing the performance of various methods on the task-incremental learning scenario of Split MNIST.
-Information about the different experiments, their progress and 
-the produced outputs (e.g., a summary pdf) are printed to the screen.
-Expected run-time on a standard desktop computer is ~100 minutes, with a GPU it is expected to take ~45 minutes.
+这运行了一系列持续学习实验，比较了各种方法在 Split MNIST 任务增量学习场景上的性能。
+有关不同实验、实验进度和产生的输出（例如摘要 pdf）的信息会打印到屏幕上。
+标准台式计算机上的预计运行时间约为 100 分钟，使用 GPU 时预计需要约 45 分钟。
 
 
-## Re-running the comparisons from the article
-The script `all_results.sh` provides step-by-step instructions for re-running the experiments and re-creating the
-tables and figures reported in the article "Three types of incremental learning".
+## 重新运行文章中的比较
+脚本“all_results.sh”提供了重新运行实验并重新创建“增量学习的三种类型”一文中报告的表格和图形的分步说明。
 
-Although it is possible to run this script as it is, it will take very long and it is probably sensible to parallellize
-the experiments.
+尽管可以按原样运行此脚本，但这将花费很长时间，并且并行实验可能是明智的。
 
 
 ## Running custom experiments
 #### Academic continual learning setting
-Custom individual experiments in the academic continual learning setting can be run with `main.py`.
-The main options of this script are:
-- `--experiment`: how to construct the context set? (`splitMNIST`|`permMNIST`|`CIFAR10`|`CIFAR100`)
-- `--contexts`: how many contexts?
-- `--scenario`: according to which scenario? (`task`|`domain`|`class`)
+学术持续学习环境中的自定义个人实验可以使用“main.py”运行。
+该脚本的主要选项有：
+- `--experiment`: 如何构建上下文集？ (`splitMNIST`|`permMNIST`|`CIFAR10`|`CIFAR100`)
+- `--contexts`: 有多少上下文？
+- `--scenario`: 根据哪种情况？ (`task`|`domain`|`class`)
 
-To run specific methods, you can use the following:
+要运行特定方法，可以使用以下命令：
 - Separate Networks: `./main.py --separate-networks`
 - Context-dependent-Gating (XdG): `./main.py --xdg`
 - Elastic Weight Consolidation (EWC): `./main.py --ewc`
@@ -99,47 +87,42 @@ To run specific methods, you can use the following:
 - Generative Classifier: `./main.py --gen-classifier`
 - incremental Classifier and Representation Learning (iCaRL): `./main.py --icarl`
 
-To run baseline models (see the article for details):
+运行基线模型（有关详细信息，请参阅文章）：
 - None ("lower target"): `./main.py`
 - Joint ("upper target"): `./main.py --joint`
 
-For information on further options: `./main.py -h`.
-The code supports combinations of several of the above methods.
-It is also possible to create custom approaches by mixing components of different methods,
-although not all possible combinations have been tested.
+有关更多选项的信息：`./main.py -h`。
+该代码支持上述几种方法的组合。
+还可以通过混合不同方法的组件来创建自定义方法，
+尽管并未测试所有可能的组合。
 
-#### More flexible, "task-free" continual learning experiments
-Custom individual experiments in a more flexible, "task-free" continual learning setting can be run with 
-`main_task_free.py`. The main options of this script are:
-- `--experiment`: how to construct the context set? (`splitMNIST`|`permMNIST`|`CIFAR10`|`CIFAR100`)
-- `--contexts`: how many contexts?
-- `--stream`: how to transition between contexts? (`fuzzy-boundaries`|`academic-setting`|`random`)
-- `--scenario`: according to which scenario? (`task`|`domain`|`class`)
+#### 更灵活、“无任务”的持续学习实验
+可以在更灵活、“无任务”的持续学习环境中运行定制的单独实验
+`main_task_free.py`。 该脚本的主要选项有：
+- `--experiment`:如何构建上下文集？ (`splitMNIST`|`permMNIST`|`CIFAR10`|`CIFAR100`)
+- `--contexts`: 有多少上下文？
+- `--stream`: 如何在上下文之间转换？ (`fuzzy-boundaries`|`academic-setting`|`random`)
+- `--scenario`: 根据哪种情况？ (`task`|`domain`|`class`)
 
-For information on further options: `./main_task_free.py -h`. This script supports several of the above 
-continual learning methods, but not (yet) all of them. Some methods have been slightly modified to 
-make them suitable for the absence of (known) context boundaries.
-In particular, methods that normally perform a certain consolidation operation at context boundaries, instead perform
-this consolidation operation every `X` iterations, whereby `X` is set with the option `--update-every`. 
+有关更多选项的信息：`./main_task_free.py -h`。 该脚本支持上述几种持续学习方法，但还不是全部。 一些方法经过轻微修改，使其适用于缺乏（已知）上下文边界的情况。
+特别是，通常在上下文边界执行特定合并操作的方法，而是在每个“X”迭代中执行此合并操作，其中“X”是使用选项“--update-every”设置的。
 
-## On-the-fly plots during training
-With this code progress during training can be tracked with on-the-fly plots. This feature requires `visdom`, 
-which can be installed as follows:
+## 训练期间的实时绘图
+使用此代码，可以通过动态图来跟踪训练期间的进度。 此功能需要`visdom`，可以按如下方式安装：
 ```bash
 pip install visdom
 ```
-Before running the experiments, the visdom server should be started from the command line:
+在运行实验之前，应从命令行启动 visdom 服务器：
 ```bash
 python -m visdom.server
 ```
-The visdom server is now alive and can be accessed at `http://localhost:8097` in your browser (the plots will appear
-there). The flag `--visdom` should then be added when calling `./main.py` or `./main_task_free.py` to run the experiments with on-the-fly plots.
+visdom 服务器现已启动，可以在浏览器中通过“http://localhost:8097”进行访问（图表将显示在那里）。 然后，在调用“./main.py”或“./main_task_free.py”时，应添加标志“--visdom”以使用动态图运行实验。
 
-For more information on `visdom` see <https://github.com/facebookresearch/visdom>.
+有关“visdom”的更多信息，请参阅<https://github.com/facebookresearch/visdom>。
 
 
-### Citation
-If you use this code in your research, please consider citing the main accompanying article:
+### 引用
+如果您在研究中使用此代码，请考虑引用主要随附文章：
 ```
 @article{vandeven2022three,
   title={Three types of incremental learning},
