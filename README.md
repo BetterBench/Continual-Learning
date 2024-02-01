@@ -5,7 +5,7 @@
 * [Three types of incremental learning](https://www.nature.com/articles/s42256-022-00568-3) (2022, *Nature Machine Intelligence*)
 
 
-## 安装和配置
+## 1 安装和配置
 当前版本的代码已在 Fedora、windows 操作系统上使用进行了测试：
 * `python 3.9+`
 * `pytorch 1.11.0+`
@@ -23,13 +23,13 @@ chmod +x main*.py compare*.py all_results.sh
 ```
 
 
-## NeurIPS 教程
+## 2 NeurIPS 教程
 
 此代码存储库用于["Lifelong Learning Machines"](https://sites.google.com/view/neurips2022-llm-tutorial).
 有关如何重新运行本教程中介绍的实验的详细信息和说明，请参阅文件 [NeurIPS_tutorial.md](NeurIPS_tutorial.md)。
 
-## Demos
-##### Demo 1: 单个模型实验
+## 3 Demos
+##### 3.1 Demo 1: 单个模型实验
 ```bash
 ./main.py --experiment=splitMNIST --scenario=task --si
 ```
@@ -37,7 +37,7 @@ chmod +x main*.py compare*.py all_results.sh
 使用学术持续学习设置的Split MNIST 任务增量学习场景的突触智能（Synaptic Intelligence）方法。 有关数据、网络、训练进度和产生的输出的信息都会打印到屏幕上。
 标准台式计算机上的预计运行时间约为 6 分钟，使用 GPU 时预计需要约 3 分钟。
 
-##### Demo 2: 持续学习方法比较
+##### 3.2 Demo 2: 持续学习方法比较
 ```bash
 ./compare.py --experiment=splitMNIST --scenario=task
 ```
@@ -46,14 +46,14 @@ chmod +x main*.py compare*.py all_results.sh
 标准台式计算机上的预计运行时间约为 100 分钟，使用 GPU 时预计需要约 45 分钟。
 
 
-## 重新运行文章中的比较
+## 4 重新运行文章中的比较
 脚本“all_results.sh”提供了重新运行实验并重新创建“增量学习的三种类型”一文中报告的表格和图形的分步说明。
 
 尽管可以按原样运行此脚本，但这将花费很长时间，并且并行实验可能是明智的。
 
 
-## 运行自定义实验
-#### 学术持续学习环境
+## 5 运行自定义实验
+#### 5.1 学术持续学习环境
 学术持续学习环境中的自定义个人实验可以使用“main.py”运行。
 该脚本的主要选项有：
 - `--experiment`: 如何构建上下文集？ (`splitMNIST`|`permMNIST`|`CIFAR10`|`CIFAR100`)
@@ -83,7 +83,7 @@ chmod +x main*.py compare*.py all_results.sh
 还可以通过混合不同方法的组件来创建自定义方法，
 尽管并未测试所有可能的组合。
 
-#### 更灵活、“无任务”的持续学习实验
+#### 5.2 更灵活、“无任务”的持续学习实验
 可以在更灵活、“无任务”的持续学习环境中运行定制的单独实验
 `main_task_free.py`。 该脚本的主要选项有：
 - `--experiment`:如何构建上下文集？ (`splitMNIST`|`permMNIST`|`CIFAR10`|`CIFAR100`)
@@ -94,7 +94,7 @@ chmod +x main*.py compare*.py all_results.sh
 有关更多选项的信息：`./main_task_free.py -h`。 该脚本支持上述几种持续学习方法，但还不是全部。 一些方法经过轻微修改，使其适用于缺乏（已知）上下文边界的情况。
 特别是，通常在上下文边界执行特定合并操作的方法，而是在每个“X”迭代中执行此合并操作，其中“X”是使用选项“--update-every”设置的。
 
-## 训练期间的实时绘图
+## 6 训练期间的实时绘图
 使用此代码，可以通过动态图来跟踪训练期间的进度。 此功能需要`visdom`，可以按如下方式安装：
 ```bash
 pip install visdom
@@ -103,12 +103,12 @@ pip install visdom
 ```bash
 python -m visdom.server
 ```
-visdom 服务器现已启动，可以在浏览器中通过“http://localhost:8097”进行访问（图表将显示在那里）。 然后，在调用“./main.py”或“./main_task_free.py”时，应添加标志“--visdom”以使用动态图运行实验。
+visdom 服务器现已启动，可以在浏览器中通过[http://localhost:8097](http://localhost:8097)进行访问（图表将显示在那里）。 然后，在调用“./main.py”或“./main_task_free.py”时，应添加标志“--visdom”以使用动态图运行实验。
 
-有关“visdom”的更多信息，请参阅<https://github.com/facebookresearch/visdom>。
+有关“visdom”的更多信息，请参阅[https://github.com/facebookresearch/visdom](https://github.com/facebookresearch/visdom)。
 
 
-### 引用
+### 7 引用
 如果您在研究中使用此代码，请考虑引用主要随附文章：
 ```
 @article{vandeven2022three,
