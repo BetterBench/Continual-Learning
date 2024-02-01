@@ -1,28 +1,15 @@
-# Continual Learning 持续学习（连续学习）
+# 基于Pyrotch实现的Continual Learning 持续学习（连续学习）所有方法
 [![DOI](https://zenodo.org/badge/150479999.svg)](https://zenodo.org/badge/latestdoi/150479999)
 
-这是使用深度神经网络进行持续学习实验的 PyTorch 实现，参见
-以下文章：
+这是使用深度神经网络进行持续学习实验的 PyTorch 实现，参见以下文章：
 * [Three types of incremental learning](https://www.nature.com/articles/s42256-022-00568-3) (2022, *Nature Machine Intelligence*)
-
-该存储库主要支持*学术持续学习环境*中的实验，其中基于分类的问题被分成多个不重叠的*上下文context* （或“任务task”，因为它们通常被称为）必须按顺序学习。
-还为运行更灵活的“无任务”持续学习实验提供了一些支持
-上下文之间逐渐过渡。
-
-
-### 旧版
-可以在此存储库中找到早期版本的代码
-[in this branch](https://github.com/GMvandeVen/continual-learning/tree/preprints).
-此版本的代码用于上述文章的两篇预印本中描述的持续学习实验：
-- 持续学习的三种场景（<https://arxiv.org/abs/1904.07734>）
-- 具有反馈连接的生成重播作为持续学习的一般策略
-(<https://arxiv.org/abs/1809.10635>)
 
 
 ## 安装和配置
-当前版本的代码已在 Fedora 操作系统上使用“Python 3.10.4”以及以下版本的 PyTorch 和 Torchvision 进行了测试：
-* `pytorch 1.11.0`
-* `torchvision 0.12.0`
+当前版本的代码已在 Fedora、windows 操作系统上使用进行了测试：
+* `python 3.9+`
+* `pytorch 1.11.0+`
+* `torchvision 0.12.0+`
 
 更多使用的 Python 包列在“requirements.txt”中。
 假设已设置 Python 和 pip，可以使用以下命令安装这些包：
@@ -36,13 +23,13 @@ chmod +x main*.py compare*.py all_results.sh
 ```
 
 
-## NeurIPS tutorial "Lifelong Learning Machines"
+## NeurIPS 教程
 
 此代码存储库用于 "Lifelong Learning Machines"](https://sites.google.com/view/neurips2022-llm-tutorial).
 有关如何重新运行本教程中介绍的实验的详细信息和说明，请参阅文件 [NeurIPS_tutorial.md](NeurIPS_tutorial.md)。
 
 ## Demos
-##### Demo 1: Single continual learning experiment
+##### Demo 1: 单个模型实验
 ```bash
 ./main.py --experiment=splitMNIST --scenario=task --si
 ```
@@ -65,8 +52,8 @@ chmod +x main*.py compare*.py all_results.sh
 尽管可以按原样运行此脚本，但这将花费很长时间，并且并行实验可能是明智的。
 
 
-## Running custom experiments
-#### Academic continual learning setting
+## 运行自定义实验
+#### 学术持续学习环境
 学术持续学习环境中的自定义个人实验可以使用“main.py”运行。
 该脚本的主要选项有：
 - `--experiment`: 如何构建上下文集？ (`splitMNIST`|`permMNIST`|`CIFAR10`|`CIFAR100`)
