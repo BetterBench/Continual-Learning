@@ -1,4 +1,4 @@
-# Continual Learning
+# Continual Learning 持续学习（连续学习）
 [![DOI](https://zenodo.org/badge/150479999.svg)](https://zenodo.org/badge/latestdoi/150479999)
 
 这是使用深度神经网络进行持续学习实验的 PyTorch 实现，参见
