@@ -25,7 +25,7 @@ chmod +x main*.py compare*.py all_results.sh
 
 ## NeurIPS 教程
 
-此代码存储库用于 "Lifelong Learning Machines"](https://sites.google.com/view/neurips2022-llm-tutorial).
+此代码存储库用于["Lifelong Learning Machines"](https://sites.google.com/view/neurips2022-llm-tutorial).
 有关如何重新运行本教程中介绍的实验的详细信息和说明，请参阅文件 [NeurIPS_tutorial.md](NeurIPS_tutorial.md)。
 
 ## Demos
